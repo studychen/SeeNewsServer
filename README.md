@@ -20,6 +20,7 @@ Java Servlet+Mysql
 - <a href="mailto:601240943@qq.com">601240943@qq.com</a> 只有邮箱，没有前面的"mailto:"
 
 - http 开头的、www 开头、kb.xidian.cc 等等
+- `<a href="电院" target="_blank" rel="nofollow">电院</a>`
 
 ### 图片上传到七牛云
 
