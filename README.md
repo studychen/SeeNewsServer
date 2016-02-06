@@ -11,7 +11,7 @@ Java Servlet+Mysql
 #### 异常图像url
 - 重复的附件图标 http://rsc.xidian.edu.cn/plus/img/addon.gif [新闻 id 7920]
 
-- 脏数据 <img src="file://C:\Users\ADMINI~1\AppData\Local\Temp\%W@GJ$ACOF(TYDYECOKVDYB.png"> [新闻 id 7302]  
+- 脏数据 `<img src="file://C:\Users\ADMINI~1\AppData\Local\Temp\%W@GJ$ACOF(TYDYECOKVDYB.png">` [新闻 id 7302]  
 
 #### 已收集异常 href :
 - <a href="mailto:601240943@qq.com">601240943@qq.com</a> 只有邮箱，没有前面的"mailto:"
