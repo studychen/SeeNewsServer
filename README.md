@@ -17,12 +17,17 @@ Java Servlet+Mysql
 
 
 #### 已收集异常 href :
-- <a href="mailto:601240943@qq.com">601240943@qq.com</a> 只有邮箱，没有前面的"mailto:"
 
-- http 开头的、www 开头、kb.xidian.cc 等等
-- `<a href="电院" target="_blank" rel="nofollow">电院</a>`
-- id=7837, href 出现多次 `<a class="ke-insertfile" href="/uploads/file/20151202/20151202101309_73187.zip" target="_blank">2016年大赛通知电子版及附件</a>` 导致出现`http://see.xidian.edu.cnhttp://see.xidian.edu.cn/uploads/file/20151202/20151202101309_73187.zip`
-- id=7710, `<a class="ke-insertfile" href="培育项目申报相关文件" target="_blank">培育项目申报相关文件</a>`
+| 新闻 id        |  脏数据          | 描述  |
+| ------------- |:-------------| -----|
+|  -    | `<a href="电院" target="_blank" rel="nofollow">电院</a> `| href 是中文 |
+| 7837 |  `<a class="ke-insertfile" href="/uploads/file/20151202/20151202101309_73187.zip" target="_blank">2016年大赛通知电子版及附件</a>`      | 同一个 href 出现多次，替换多次，导致出现`http://see.xidian.edu.cnhttp://see.xidian.edu.cn/uploads/file/**.zip`
+ |
+| 7710 | `<a class="ke-insertfile" href="培育项目申报相关文件" target="_blank">培育项目申报相关文件</a>`       |  href是中文    |
+| - | `<a href="mailto:601240943@qq.com">601240943@qq.com</a>`       |  只有邮箱，没有前面的"mailto:"
+| - | `kb.xidian.cc `   `www` 开头     |  未以 http 开头
+
+ 
 ### 图片上传到七牛云
 
 异步上传图片到七牛云
