@@ -21,6 +21,7 @@ Java Servlet+Mysql
 
 - http 开头的、www 开头、kb.xidian.cc 等等
 - `<a href="电院" target="_blank" rel="nofollow">电院</a>`
+- id=7837, href 出现多次 `<a class="ke-insertfile" href="/uploads/file/20151202/20151202101309_73187.zip" target="_blank">2016年大赛通知电子版及附件</a>` 导致出现`http://see.xidian.edu.cnhttp://see.xidian.edu.cn/uploads/file/20151202/20151202101309_73187.zip`
 
 ### 图片上传到七牛云
 
