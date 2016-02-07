@@ -1,0 +1,63 @@
+@charset "utf-8";
+/* p {color:#FF3366;text-indent:2em;line-height:24px;}  */
+#article_title { 
+	text-align: center;
+	width: 100%;
+	font-size: 20px;
+	margin: 0 0 10px 0;
+}
+#article_title h1 {
+	font-size: 20px;
+	line-height: 30px;
+	font-weight: normal;
+}
+
+
+#article_detail {
+	font-size: 14px;
+	color: #888888;
+	margin: 10px 0px;
+	text-align: center;
+	border-bottom: 1px solid #f0f0f0;
+	line-height: 25px;
+}
+#article_detail span{
+	margin: 0px 5px;
+}
+
+#article_content p{
+	text-indent: 2em;
+	margin-bottom: 20px;
+	font-size: 15px;
+}
+
+#article_content a:hover {
+	text-decoration: underline;
+}
+#article_content a {
+	color: #428bca;
+}
+#original_post {
+	margin-top: 15px;
+	border-top: 1px dashed #ccc;
+	color: #777;
+	text-align: center;
+}
+#original_post p{
+	margin: 5px 0;
+	color: #777;
+	font-size: 12px;
+}
+/* a{
+	text-decoration: none;
+	color: #111;
+}
+a:hover {
+	color:#BD0800;
+} */
+/* a {color:#3E62A6;} */
+img {max-width:310px;display:table-cell;vertical-align:middle;margin-left:1em;}
+
+img.alignleft {float:left;max-width:120px;margin:0 10px 5px 0;border:1px solid #ccc;background:#fff;padding:2px;}
+pre {font-size:9pt;line-height:12pt;font-family:Courier New,Arial;border:1px solid #ddd;border-left:5px solid #6CE26C;background:#f6f6f6;padding:5px;overflow: auto;}
+a.tag {font-size:15px;text-decoration:none;background-color:#bbd6f3;border-bottom:2px solid #3E6D8E;border-right:2px solid #7F9FB6;color:#284a7b;margin:2px 2px 2px 0;padding:2px 4px;white-space:nowrap;}</style>
