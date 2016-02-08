@@ -11,6 +11,7 @@ Java Servlet+Mysql
 #### 异常图像url
 >图片正常路径  `/uploads/image/20160109/20160109***.jpg`
 旧路径 `/uploads/old/201152**.jpg`
+
 - 重复的附件图标 http://rsc.xidian.edu.cn/plus/img/addon.gif [新闻 id 7920]
 
 - 脏数据 `<img src="file://C:\Users\ADMINI~1\AppData\Local\Temp\%W@GJ$ACOF(TYDYECOKVDYB.png">` [新闻 id 7302]  
@@ -19,7 +20,7 @@ Java Servlet+Mysql
 
 ### 重复使用的文件下载图标
 | 图标       |  原地址          | 七牛 key 值  |
-| ------------- |:-------------| -----|
+| ------------- |------------| -----|
 |  <img border="0" src="http://7xq7ik.com1.z0.glb.clouddn.com/912720f605b84070e223d0dab690a114" width="18" heigh="18">  | http://rsc.xidian.edu.cn/plus/img/addon.gif| `912720f605b84070e223d0dab690a114` |
 |  <img border="0" src="http://7xq7ik.com1.z0.glb.clouddn.com/b5805b46ce8cf9c634b3820a23d64ca6" width="18" heigh="18"> |    http://see.xidian.edu.cn/uploads/old/file/doc.gif    | `b5805b46ce8cf9c634b3820a23d64ca6`|
 |  <img border="0" src="http://7xq7ik.com1.z0.glb.clouddn.com/84b7028179e09614540cea8dd0122c3c" width="18" heigh="18"> |    http://see.xidian.edu.cn/uploads/old/file/xls.gif    | `84b7028179e09614540cea8dd0122c3c`|
@@ -30,17 +31,22 @@ Java Servlet+Mysql
 #### 已收集异常 href :
 
 | 新闻 id        |  脏数据          | 描述  |
-| ------------- |:-------------| -----|
-|  -    | `<a href="电院" target="_blank" rel="nofollow">电院</a> `| href 是中文 |
-| 7837 |  `<a class="ke-insertfile" href="/uploads/file/20151202/20151202101309_73187.zip" target="_blank">2016年大赛通知电子版及附件</a>`      | 同一个 href 出现多次，替换多次，导致出现`http://see.xidian.edu.cnhttp://see.xidian.edu.cn/uploads/file/**.zip`
- |
-| 7710 | `<a class="ke-insertfile" href="培育项目申报相关文件" target="_blank">培育项目申报相关文件</a>`       |  href是中文    |
-| - | `<a href="mailto:601240943@qq.com">601240943@qq.com</a>`       |  只有邮箱，没有前面的"mailto:"
-| - | `kb.xidian.cc `   `www` 开头     |  未以 http 开头
+| ------------- |-------------| -----|
+|  -    | `href="电院"`| href 是中文 |
+| 7837 |  `/uploads/file/20151202/20151202101309_73187.zip`      | 同一个 href 出现多次，导致替换多次，出现`http://see.xidian.edu.cnhttp://see.xidian.edu.cn/**.zip`|
+| 7710 | `href="培育项目申报相关文件" ` |  href是中文|
+| - | `href="mailto:601240943@qq.com"`|  只有邮箱，没有前面的"mailto:"
+| - | `kb.xidian.cc `  或者 `www.baidu.com`      |  未以 http 开头|
+| 6283 | ` https://mail.google.com/mail/h/**`      |  以 https 开头|
 
- 
+
+
+ 常规 href http https 开头
 ### 图片上传到七牛云
 
 异步上传图片到七牛云
 
-### 
+### 感谢开源，依赖的类库
+- Java爬虫 [Jsoup](https://github.com/jhy/jsoup)
+- json 序列化 [gson](https://github.com/google/gson)
+- 处理数组 [commons-lang](https://github.com/apache/commons-lang)
