@@ -27,6 +27,9 @@ Java Servlet+Mysql
 |  <img border="0" src="http://7xq7ik.com1.z0.glb.clouddn.com/ad5d0e0cf63834756dde3dc5e9629d8" width="18" heigh="18"> |    http://see.xidian.edu.cn/uploads/old/ico/doc.jpg  资源不存在，改用上面的gif | `ad5d0e0cf63834756dde3dc5e9629d8` |
 |  <img border="0" src="http://7xq7ik.com1.z0.glb.clouddn.com/3949a245e521f81ffd18e5d01347a20d" width="18" heigh="18"> |    http://see.xidian.edu.cn/uploads/old/ico/zip.jpg  资源不存在，改用上面的gif | `3949a245e521f81ffd18e5d01347a20d`|
 |  <img border="0" src="http://7xq7ik.com1.z0.glb.clouddn.com/f8d0fc587a7c7295835e8094af094d2d" width="18" heigh="18"> |    http://jwc.xidian.edu.cn/images/ico/doc.jpg  资源不存在，改用上面的gif | `f8d0fc587a7c7295835e8094af094d2d`|
+|  <img border="0" src="http://7xq7ik.com1.z0.glb.clouddn.com/bc87e43d342b380a2145ee1bb8298759" width="18" heigh="18"> |    http://jwc.xidian.edu.cn/images/ico/rar.jpg  资源不存在，改用上面的gif | `bc87e43d342b380a2145ee1bb8298759`|
+|  <img border="0" src="http://7xq7ik.com1.z0.glb.clouddn.com/d72210a72c0e174245a65e8755f6eaa" width="18" heigh="18"> |    http://jwc.xidian.edu.cn/images/ico/xls.jpg  资源不存在，改用上面的gif | `d72210a72c0e174245a65e8755f6eaa`|
+
 
  
 #### 已收集异常 href :
