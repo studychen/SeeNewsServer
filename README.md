@@ -9,6 +9,8 @@ Java Servlet+Mysql
 基于 JavaMail，对于异常图片、异常 url 发送邮件通知
 
 #### 异常图像url
+>图片正常路径  `/uploads/image/20160109/20160109***.jpg`
+旧路径 `/uploads/old/201152**.jpg`
 - 重复的附件图标 http://rsc.xidian.edu.cn/plus/img/addon.gif [新闻 id 7920]
 
 - 脏数据 `<img src="file://C:\Users\ADMINI~1\AppData\Local\Temp\%W@GJ$ACOF(TYDYECOKVDYB.png">` [新闻 id 7302]  
