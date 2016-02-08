@@ -55,3 +55,4 @@ Java Servlet+Mysql
 - Java爬虫 [Jsoup](https://github.com/jhy/jsoup)
 - json 序列化 [gson](https://github.com/google/gson)
 - 处理数组 [commons-lang](https://github.com/apache/commons-lang)
+- javamail [javamail](https://java.net/projects/javamail/pages/Home)
