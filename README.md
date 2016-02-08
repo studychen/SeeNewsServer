@@ -12,11 +12,13 @@ Java Servlet+Mysql
 >图片正常路径  `/uploads/image/20160109/20160109***.jpg`
 旧路径 `/uploads/old/201152**.jpg`
 
-- 重复的附件图标 http://rsc.xidian.edu.cn/plus/img/addon.gif [新闻 id 7920]
 
-- 脏数据 `<img src="file://C:\Users\ADMINI~1\AppData\Local\Temp\%W@GJ$ACOF(TYDYECOKVDYB.png">` [新闻 id 7302]  
-- `<img alt="" src="http://see.xidian.edu.cn/uploads/image/20141021/20141021022525_88324.jpg" width="605" height="497">` [新闻 id 7017]  
-- `<img src="/Public/kindeditor/php/../../../uploads/image/20151116/20151116114927_39484.jpg" alt="" width="600" height="399" title="" align="">` [新闻 id 7798]  
+| 新闻 id        |  异常图片链接          | 描述  |
+| ------------- |-------------| -----|
+|  7798 | `src="/Public/kindeditor/php/../../../uploads/image/2015**.jpg"`| 多了`/Public/kindeditor/php/`，前面需加上`http://see.xidian.edu.cn` |
+|  7302 | `<img src="file://C:\Users\ADMINI~1\AppData\Local\Temp\%W@GJ$ACOF(TYDYECOKVDYB.png">`| 图片资源不存在，忽略 |
+|  7017 | `src="http://see.xidian.edu.cn/uploads/image/20141021/20**.jpg"`| 绝对路径开头 |
+
 
 ### 重复使用的文件下载图标
 | 图标       |  原地址          | 七牛 key 值  |
