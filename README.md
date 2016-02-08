@@ -26,7 +26,8 @@ Java Servlet+Mysql
 |  <img border="0" src="http://7xq7ik.com1.z0.glb.clouddn.com/84b7028179e09614540cea8dd0122c3c" width="18" heigh="18"> |    http://see.xidian.edu.cn/uploads/old/file/xls.gif    | `84b7028179e09614540cea8dd0122c3c`|
 |  <img border="0" src="http://7xq7ik.com1.z0.glb.clouddn.com/ad5d0e0cf63834756dde3dc5e9629d8" width="18" heigh="18"> |    http://see.xidian.edu.cn/uploads/old/ico/doc.jpg  资源不存在，改用上面的gif | `ad5d0e0cf63834756dde3dc5e9629d8` |
 |  <img border="0" src="http://7xq7ik.com1.z0.glb.clouddn.com/3949a245e521f81ffd18e5d01347a20d" width="18" heigh="18"> |    http://see.xidian.edu.cn/uploads/old/ico/zip.jpg  资源不存在，改用上面的gif | `3949a245e521f81ffd18e5d01347a20d`|
- 
+|  <img border="0" src="http://7xq7ik.com1.z0.glb.clouddn.com/f8d0fc587a7c7295835e8094af094d2d" width="18" heigh="18"> |    http://jwc.xidian.edu.cn/images/ico/doc.jpg  资源不存在，改用上面的gif | `f8d0fc587a7c7295835e8094af094d2d`|
+
  
 #### 已收集异常 href :
 
@@ -37,11 +38,12 @@ Java Servlet+Mysql
 | 7710 | `href="培育项目申报相关文件" ` |  href是中文|
 | - | `href="mailto:601240943@qq.com"`|  只有邮箱，没有前面的"mailto:"
 | - | `kb.xidian.cc `  或者 `www.baidu.com`      |  未以 http 开头|
-| 6283 | ` https://mail.google.com/mail/h/**`      |  以 https 开头|
+| 6283 | `https://mail.google.com/mail/h/**`      |  https 开头|
+| 6206 | `ftp://linux.xidian.edu.cn`      |  ftp 开头|
 
 
 
- 常规 href http https 开头
+ 常规 href 以 http https 开头
 ### 图片上传到七牛云
 
 异步上传图片到七牛云
