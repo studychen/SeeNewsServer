@@ -22,8 +22,8 @@ Java Servlet+Mysql
 
 | 新闻 id        |  异常图片链接          | 描述  |
 | ------------- |-------------| -----|
-|  7798 | `src="/Public/kindeditor/php/`<br>`../../../uploads/image/2015**.jpg"`| 多了`/Public/kindeditor/php/`，前面需加上`http://see.xidian.edu.cn` |
-|  7302 | `<img src="file://C:\Users\ADMINI~1\AppData`<br>`\Local\Temp\%W@GJ$ACOF(TYDYECOKVDYB.png">`| 图片资源不存在，忽略 |
+|  7798 | `src="/Public/kindeditor/php/`<br>`../../../uploads/image/2015**.jpg"`| 多了`/Public/kindeditor/php/`<br>前面需加上`http://see.xidian.edu.cn` |
+|  7302 | `<img src="file://C:\Users\ADMINI~1\AppData`<br>`\Local\Temp\%W@GJ$ACOF(TYDYECOKVDYB.png">`| 图片资源不存在<br>忽略 |
 |  7017 | `src="http://see.xidian.edu.cn/`<br>`uploads/image/20141021/20**.jpg"`| 绝对路径开头 |
 
 
