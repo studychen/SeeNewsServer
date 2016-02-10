@@ -28,7 +28,7 @@ public class MailTool {
 	// 图片异常，不是以 /uploads 开头
 	public static final int IMAGE_UNUSUAL = 0;
 	public static final int ARTICLE_ITEM_BIZ = 1;
-	public static final int HREF_UNUSUAL = 1;
+	public static final int HREF_UNUSUAL = 2;
 
 	public static boolean sendException(String content, int currentPage, int type) {
 		// 配置信息支持从文件读取 props.load(InputStream inStream);

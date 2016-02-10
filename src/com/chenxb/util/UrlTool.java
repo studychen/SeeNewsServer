@@ -2,6 +2,8 @@ package com.chenxb.util;
 
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class UrlTool {
 	// LATEST,//最新消息
 	// NOTIFIC, //校园通知
@@ -46,7 +48,7 @@ public class UrlTool {
 	 * 处理文章 body 里的 url
 	 * /uploads/file/20150706/20150706094631_73253.doc
 	 * 
-	 * 主要是处理文件下载的相对路径和绝对路径
+	 * 相对路径全部转化为绝对路径
 	 * @param origin
 	 * @return
 	 */
@@ -56,6 +58,14 @@ public class UrlTool {
 		if (origin.startsWith("/uploads")) {
 			// 相对路径，比如
 			return Constant.SEE_URL + origin;
+		} else if (StringUtils.startsWithAny(origin, Constant.HTTP_PREFIX, Constant.HTTPS_PREFIX,
+				Constant.FTP_PREFIX)) {
+			// http https ftp 开头
+			// 先后顺序，先判断是不是 http 开头，再判断是不是 www 开头
+			if (Constant.DEBUG) {
+				System.out.println("in dealAttachmentUrl 全路径");
+			}
+			return origin;
 		} else if (origin.length() == 0 || origin.equals("")) {
 			// 无效<a>标签，获得的href为""
 			return origin;
@@ -65,16 +75,16 @@ public class UrlTool {
 			// 只是邮件名，加上 mailto
 			// 注意前后顺序
 			return Constant.MAILTO_PREFIX + origin;
-		} else if (origin.startsWith(Constant.HTTP_PREFIX) || origin.startsWith(Constant.WWW_PREFIX)
-				|| origin.contains(Constant.EDU_PREFIX)) {
-			return origin;
-		} else if (origin.equals(Constant.WEBSITE_NAME)){
+		} else if (origin.startsWith(Constant.WWW_PREFIX)) {
+			// www开头的，加上 http://
+			return Constant.HTTP_PREFIX + origin;
+		} else if (origin.equals(Constant.WEBSITE_NAME)) {
 			return Constant.SEE_URL;
-		} else{
+		} else {
 			// 链接未在考虑范围内，发邮件通知
 			StringBuilder builder = new StringBuilder();
 			builder.append("<p>UrlTool.dealAttachmentUrl() 无法解析url</p>");
-			builder.append("<p>图片 url = " + origin + "</p>");
+			builder.append("<p>异常 href = " + origin + "</p>");
 			MailTool.sendException(builder.toString(), currentPage, MailTool.HREF_UNUSUAL);
 			return origin;
 		}

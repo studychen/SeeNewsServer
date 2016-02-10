@@ -54,13 +54,13 @@ public class ColumnDao {
 			for (int id : ids) {
 				ArticleItem article = ArticleBiz.parseNewsItem(id);
 				if (DEBUG) {
-					System.out.println("insert " + id + " " + article.getTitle() + " into " + tableName);
+					System.out.println(TimeTool.getCurrentTime() + " insert " + id + " " + article.getTitle() + " into "
+							+ tableName);
 				}
 				insertArticle(tableName, article);
 				// 等待时间，避免对被爬取的网站负载过大
 				TimeTool.sleepSomeTime();
 			}
-
 		}
 	}
 
@@ -83,7 +83,8 @@ public class ColumnDao {
 			for (int id : ids) {
 				ArticleItem article = ArticleBiz.parseNewsItem(id);
 				if (DEBUG) {
-					System.out.println("insert " + id + " " + article.getTitle() + " into " + tableName);
+					System.out.println(TimeTool.getCurrentTime() + " insert " + id + " " + article.getTitle() + " into "
+							+ tableName);
 				}
 				// 等待时间，避免对被爬取的网站负载过大
 				TimeTool.sleepSomeTime();
@@ -107,6 +108,10 @@ public class ColumnDao {
 
 		int minId = getMinId(type);
 
+		if (Constant.DEBUG) {
+			System.out.println(TimeTool.getCurrentTime() + " get minId " + minId);
+		}
+
 		String tableName = TableName.getTableByType(type);
 
 		boolean find = false;
@@ -115,46 +120,59 @@ public class ColumnDao {
 		for (int i = 1; i <= total; i++) {
 			int[] ids = ColumnBiz.parseColumn(type, i);
 
-			// 没有找到最小的 id，需要 i++继续往前找
 			if (!find) {
-				if (ArrayUtils.contains(ids, minId)) {
+				// 数组最后一个数，是否在 mysql
+				boolean isExist = isIdExist(type, ids[ids.length - 1]);
 
-					find = true;
+				// 如果最后一个数在 mysql 中，该页所有记录都已爬取
+				if (isExist) {
+					continue;
+				} else {
+					// 爬取到这一页中断
+					int pre = 0;
+					for (; pre < ids.length; pre++) {
+						// 如果记录存在，继续向下寻找
+						if (isIdExist(type, ids[pre])) {
+							continue;
+						} else {
+							if (DEBUG) {
+								// pre 不存在，pre-1存在
+								System.out.println(TimeTool.getCurrentTime() + " " + ids[pre] + " 第一个不存在 in 第 " + (i)
+										+ " 页，第 " + (pre + 1) + " 个");
+							}
+							// 不存在，跳槽循环
+							break;
+						}
+					}
 
-					int index = ArrayUtils.indexOf(ids, minId);
-
-					for (int re = index + 1; re < ids.length; re++) {
+					for (int re = pre; re < ids.length; re++) {
 						ArticleItem article = ArticleBiz.parseNewsItem(ids[re]);
 						if (DEBUG) {
-							System.out.println("insert " + ids[re] + " " + article.getTitle() + " into " + tableName);
+							System.out.println(TimeTool.getCurrentTime() + " insert " + ids[re] + " "
+									+ article.getTitle() + " into " + tableName);
 						}
 						insertArticle(tableName, article);
 						// 等待时间，避免对被爬取的网站负载过大
 						TimeTool.sleepSomeTime();
 					}
-
-					continue;
-
-				} else {
-					// 继续向前找
-					continue;
 				}
-			}
-
-			// 已经找到了最小的 id，把往后页面全部新闻插入 mysql
-			if (find) {
-				for (int id : ids) {
-					ArticleItem article = ArticleBiz.parseNewsItem(id);
-					if (DEBUG) {
-						System.out.println("insert " + id + " " + article.getTitle() + " into " + tableName);
+			} else {
+				// 已经找到了上次的断点 id，把往后页面全部新闻插入 mysql
+				if (find) {
+					for (int id : ids) {
+						ArticleItem article = ArticleBiz.parseNewsItem(id);
+						if (DEBUG) {
+							System.out.println(TimeTool.getCurrentTime() + " insert " + id + " " + article.getTitle()
+									+ " into " + tableName);
+						}
+						insertArticle(tableName, article);
+						// 等待时间，避免对被爬取的网站负载过大
+						TimeTool.sleepSomeTime();
 					}
-					insertArticle(tableName, article);
-					// 等待时间，避免对被爬取的网站负载过大
-					TimeTool.sleepSomeTime();
 				}
 			}
-
 		}
+
 	}
 
 	/**
@@ -328,5 +346,32 @@ public class ColumnDao {
 		}
 		// 如果数据库没最大的 id，返回 -1
 		return -1;
+	}
+
+	/**
+	 * 判断某个记录是否存在
+	 * @param type
+	 * @return
+	 * @throws SQLException 
+	 */
+	public boolean isIdExist(int type, int id) throws SQLException {
+
+		String tableName = TableName.getTableByType(type);
+		// 取出最新的新闻 id 表名不能用PreparedStatement
+
+		String query = "select exists(select 1 from " + tableName + " where id =?)";
+		// create the mysql preparedstatement
+		PreparedStatement preparedStmt = connection.prepareStatement(query);
+		preparedStmt.setInt(1, id);
+		ResultSet rs = preparedStmt.executeQuery();
+		// 空记录 null 会返回 0
+		if (rs.next()) {
+			if (rs.getInt(1) == 1)
+				return true;
+			else
+				return false;
+		}
+		// 如果数据库没最大的 id，返回 -1
+		return false;
 	}
 }

@@ -3,6 +3,8 @@ package com.chenxb.util;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.qiniu.common.QiniuException;
 import com.qiniu.storage.BucketManager;
 import com.qiniu.util.Auth;
@@ -10,8 +12,8 @@ import com.qiniu.util.Auth;
 public class ImageTool {
 
 	// 附件下载的图标，忽略
-	private static final String ICON_FILE = "http://rsc.xidian.edu.cn/plus/img/addon.gif";
 	private static final String IMAGE_BASE = "/uploads/image";
+	private static final String IMAGE_OLD__BASE = "/uploads/old";
 
 	/**
 	 * 图片上传到七牛，和原来的 imageUrl 不相等 
@@ -23,9 +25,10 @@ public class ImageTool {
 	public static String convertUrl(int currentPage, String origin) {
 		// 图片资源不一定都是在 uploads 文件夹下面
 		// 也有可能外链到其他网站的图片
-		if (origin.contains(Constant.SEE_URL)) {
+		if (origin.startsWith(Constant.HTTP_PREFIX)) {
 			// 以绝对路径开头，最前面是网站域名
 			// 比如 http://see.xidian.edu.cn/uploads/image/20141120/201411**.png
+			// http://imgtec.eetrend.com/sites/***
 			String imageKey = StringTool.createMD5(origin);
 			uploadByUrl(currentPage, origin, imageKey);
 			return imageKey;
@@ -40,8 +43,59 @@ public class ImageTool {
 
 			uploadByUrl(currentPage, wholeURl, imageKey);
 			return imageKey;
-		} else if (origin.equals(ICON_FILE)) {
+		} else if (origin.startsWith(IMAGE_OLD__BASE)) {
+			// 老图片路径 /uploads/old
+			String wholeURl = Constant.SEE_URL + origin;
+
+			String imageKey = StringTool.createMD5(origin);
+
+			uploadByUrl(currentPage, wholeURl, imageKey);
+			return imageKey;
+
+		} else {
+			// 这部分 todo，识别其他格式的图片
+			// 或者试图访问这个图片，但失败了，则不是完整的 url
+			StringBuilder builder = new StringBuilder();
+			builder.append("<p>ImageTool.convertUrl() 无法解析图片</p>");
+			builder.append("<p>图片 url = " + origin + "</p>");
+			MailTool.sendException(builder.toString(), currentPage, MailTool.IMAGE_UNUSUAL);
 			return origin;
+		}
+
+	}
+
+	/** imageKey 为输入参数
+	 * 
+	 * @param currentPage
+	 * @param origin
+	 * @param imageKey
+	 * @return
+	 */
+	public static String convertUrl(int currentPage, String origin, String imageKey) {
+		// 图片资源不一定都是在 uploads 文件夹下面
+		// 也有可能外链到其他网站的图片
+		if (origin.startsWith(Constant.HTTP_PREFIX)) {
+			// 以绝对路径开头，最前面是网站域名
+			// 比如 http://see.xidian.edu.cn/uploads/image/20141120/201411**.png
+			// http://imgtec.eetrend.com/sites/***
+			uploadByUrl(currentPage, origin, imageKey);
+			return imageKey;
+		} else if (origin.startsWith(IMAGE_BASE)) {
+			// 相对路径，比如/uploads/image/20141120/20141120**.jpg
+			// /Public/kindeditor/php/../../../uploads/image/20151116/20151116114927_39484.jpg
+			// 把图片上传给七牛
+			// if 的先后顺序，先判断是否是全路径，再判断是不是相对路径
+			String wholeURl = Constant.SEE_URL + origin;
+
+			uploadByUrl(currentPage, wholeURl, imageKey);
+			return imageKey;
+		} else if (origin.startsWith(IMAGE_OLD__BASE)) {
+			// 老图片路径 /uploads/old
+			String wholeURl = Constant.SEE_URL + origin;
+
+			uploadByUrl(currentPage, wholeURl, imageKey);
+			return imageKey;
+
 		} else {
 			// 这部分 todo，识别其他格式的图片
 			// 或者试图访问这个图片，但失败了，则不是完整的 url
@@ -104,6 +158,13 @@ class FetchRunnable implements Runnable {
 			// @param key 空间内文件的key[唯一的]
 			bucketManager.fetch(url, BUCKET_NAME, key);
 		} catch (QiniuException e) {
+			// 处理已知的部分资源不存在
+			if (StringUtils.endsWithAny(url, Constant.DOC_JPG_SUFFIX, Constant.XLS_JPG_SUFFIX, Constant.RAR_JPG_SUFFIX,
+					Constant.ZIP_JPG_SUFFIX)) {
+				// 已经手工上传了这几种图标
+				return;
+			}
+
 			StringWriter errors = new StringWriter();
 			e.printStackTrace(new PrintWriter(errors));
 

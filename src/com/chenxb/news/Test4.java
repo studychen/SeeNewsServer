@@ -1,30 +1,24 @@
 package com.chenxb.news;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.regex.Pattern;
-
-import org.apache.commons.lang3.ArrayUtils;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import java.sql.Time;
 
 import com.chenxb.biz.ArticleBiz;
-import com.chenxb.util.Constant;
-import com.chenxb.util.UrlTool;
+import com.chenxb.biz.ColumnBiz;
+import com.chenxb.dao.ColumnDao;
+import com.chenxb.model.ArticleItem;
+import com.chenxb.util.ColumnType;
+import com.chenxb.util.TableName;
+import com.chenxb.util.TimeTool;
 
 public class Test4 {
 
 	public static void main(String[] args) throws Exception {
+		System.out.println(TimeTool.getCurrentTime());
 
-		 System.out.println(ArticleBiz.parseNewsItem(7904).getBody());
-		String content = "href=/uploads/file/20151202/20151202101309_73187.zip";
-		String origin = "/uploads/file/20151202/20151202101309_73187.zip";
-
-		String[] sss = new String[4];
-		System.out.println(Arrays.toString(sss));
-		System.out.println(ArrayUtils.contains(sss, origin));
+		// String x = "http://jwc.xidian.edu.cn/images/ico/doc.jpg";
+		// System.out.println(StringUtils.endsWithAny(x,
+		// Constant.DOC_JPG_SUFFIX, Constant.XLS_JPG_SUFFIX,
+		// Constant.RAR_JPG_SUFFIX, Constant.ZIP_JPG_SUFFIX));
 		// String origin = "bhhan@mail.xdian.edu.cn";
 		// System.out.println(VALID_EMAIL_REGEX.matcher(origin).find());
 		//

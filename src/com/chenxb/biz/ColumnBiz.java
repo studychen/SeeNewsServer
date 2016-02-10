@@ -68,5 +68,16 @@ public class ColumnBiz {
 			return 5;
 		}
 	}
+	
+	/**
+	 * 获取某页码的新闻个数
+	 * @param type
+	 * @param indexPage 从第1页开始
+	 * @return
+	 * @throws IOException
+	 */
+	public static int countArticles(int type,int indexPage) throws IOException {
+		return parseColumn(type, indexPage).length;
+	}
 
 }
