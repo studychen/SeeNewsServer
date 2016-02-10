@@ -42,12 +42,12 @@ Java Servlet+Mysql
 | 新闻 id        |  脏数据          | 描述  |
 | ------------- |-------------| -----|
 |  -    | `href="电院"`| href 是中文 |
-| 7837 |  `/uploads/file/20151202/20151202101309_73187.zip`      | 同一个 href 出现多次，导致替换多次，出现`http://see.xidian.edu.cnhttp://see.xidian.edu.cn/**.zip`|
+| 7837 |  `/uploads/file/20151202/20151202101309_73187.zip`      | 同一个 href 出现多次<br>导致替换多次<br>出现`http://see.xidian.edu.cnhtt`<br>`p://see.xidian.edu.cn/**.zip`|
 | 7710 | `href="培育项目申报相关文件" ` |  href是中文|
-| - | `href="mailto:601240943@qq.com"`|  只有邮箱，没有前面的"mailto:"
-| - | `kb.xidian.cc `  或者 `www.baidu.com`      |  未以 http 开头|
-| 6283 | `https://mail.google.com/mail/h/**`      |  https 开头|
-| 6206 | `ftp://linux.xidian.edu.cn`      |  ftp 开头|
+| - | `href="601240943@qq.com"`|  只有邮箱<br>没有前面的"mailto:"
+| - | `kb.xidian.cc `|未以 http 开头|
+| 6283 | `https://mail.google.com/mail/h/**`|  https 开头|
+| 6206 | `ftp://linux.xidian.edu.cn`|  ftp 开头|
 
 
 
