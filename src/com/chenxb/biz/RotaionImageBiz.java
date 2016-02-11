@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.chenxb.model.SimpleArticleItem;
 import com.chenxb.util.Constant;
 
 /**
@@ -22,17 +22,12 @@ public class RotaionImageBiz {
 	 * @throws IOException 
 	 * 
 	*/
-	public List<SimpleArticleItem>parseImages() throws IOException {
+	public List<String> parseImages() throws IOException {
 		Document doc = Jsoup.connect(Constant.SEE_URL).timeout(10000).get();
-		Elements eles = doc.getElementById("list_area").getElementsByTag("a");
-		int[] articleIds = new int[eles.size()];
-		for (int i = 0; i < eles.size(); i++) {
-			String url = eles.get(i).attr("href");
-			articleIds[i] = Integer.parseInt(url.replaceAll("\\D+", ""));
-		}
+		Element ele = doc.getElementsByClass("rotaion_list").get(0);
+
+		System.out.println(ele);
 		return null;
 	}
 
-	
 }
-
