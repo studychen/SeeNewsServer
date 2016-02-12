@@ -29,6 +29,10 @@ public class Constant {
 
 	public static final boolean DEBUG = true;
 
+	// 手机端 listview 新闻数目
 	public static final int EACH_AMOUNT = 15;
+	
+	//轮播图片数量
+	public static final int ROTATION_AMOUNT = 7;
 
 }

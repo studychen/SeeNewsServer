@@ -57,7 +57,7 @@ public class ImageTool {
 			// 或者试图访问这个图片，但失败了，则不是完整的 url
 			StringBuilder builder = new StringBuilder();
 			builder.append("<p>ImageTool.convertUrl() 无法解析图片</p>");
-			builder.append("<p>图片 url = " + origin + "</p>");
+			builder.append("<p>图片 src = " + origin + "</p>");
 			MailTool.sendException(builder.toString(), currentPage, MailTool.IMAGE_UNUSUAL);
 			return origin;
 		}

@@ -1,5 +1,7 @@
 package com.chenxb.biz;
 
+import java.io.IOException;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -113,6 +115,31 @@ public class ArticleBiz {
 		}
 
 		return new ArticleItem(id, imageUrls, titleStr, dateStr, readTimes, sourceStr, contentStr);
+	}
+
+	/**
+	 * 根据 id 得到这条新闻属于哪个栏目
+	 * NOTIFIC = 1;// 校园通知
+	 * BACHELOR = 2;// 本科教学 学士
+	 * MASTER = 3;// 研究生 硕士
+	 * ACADEMIC = 5;// 学术交流
+	 * 选取了电院新闻的部分栏目
+	 * JOB = 8;// 就业招聘
+	 * @param id
+	 * @return
+	 * @throws IOException
+	 */
+	public static int getType(int id) throws IOException {
+		// 根据后缀的数字，拼接新闻 url
+		String urlStr = Constant.ARTICLE_BASE_URL + id + ".html";
+
+		Document doc = Jsoup.connect(urlStr).timeout(10000).get();
+		Element ele = doc.getElementById("position_guide");
+		// href 类似http://see.xidian.edu.cn/html/category/2.html
+		// 取出最后的数字2作为 type
+		String href = ele.getElementsByTag("a").get(1).attr("href");
+		return Integer.valueOf(href.replaceAll("\\D+", ""));
+
 	}
 
 }

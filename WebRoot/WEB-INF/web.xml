@@ -23,7 +23,7 @@
 		<servlet-name>ArticleWithSql</servlet-name>
 		<url-pattern>/articleWithSql</url-pattern>
 	</servlet-mapping>
-	
+
 	<!-- 得到新闻数组 -->
 	<servlet>
 		<servlet-name>parseArticleByColumn</servlet-name>
@@ -32,5 +32,15 @@
 	<servlet-mapping>
 		<servlet-name>parseArticleByColumn</servlet-name>
 		<url-pattern>/arraysWithSql</url-pattern>
+	</servlet-mapping>
+
+	<!-- 得到轮播图片 -->
+	<servlet>
+		<servlet-name>parseRotationWithSql</servlet-name>
+		<servlet-class>com.chenxb.servlet.RotationWithSql</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>parseRotationWithSql</servlet-name>
+		<url-pattern>/parseRotation</url-pattern>
 	</servlet-mapping>
 </web-app>
