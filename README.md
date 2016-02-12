@@ -9,6 +9,29 @@ Java Servlet+Mysql
 从数据库中取出最小的 id，然后找出该 id 在网站哪一页第几个，
 爬取该位置以下的新闻记录
 
+##mysql 建表语句
+
+根据`Exception: Data too long for column`修改表类型和长度
+varchar最长
+title 最长 
+“智能感知与图像理解”教育部重点实验室 第十五届学术周暨类脑计算与大数据深度学习前沿论坛
+source 最长 天线与微波技术重点实验室
+比如标题过长、
+最终的表字段类型、长度如下：
+
+```
+CREATE TABLE `rotation` (
+  `id` int(11) NOT NULL,
+  `image_urls` text,
+  `title` varchar(100) DEFAULT NULL,
+  `publish_date` date NOT NULL,
+  `read_times` int(11) NOT NULL,
+  `source` varchar(50) DEFAULT NULL,
+  `body` longtext,
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+```
 
 ##功能清单
 
