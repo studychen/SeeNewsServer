@@ -82,3 +82,5 @@ CREATE TABLE `rotation` (
 - json 序列化 [gson](https://github.com/google/gson)
 - 处理数组 [commons-lang](https://github.com/apache/commons-lang)
 - javamail [javamail](https://java.net/projects/javamail/pages/Home)
+- 中文分词 [jcseg](http://www.oschina.net/p/jcseg)  
+- 全文检索引擎工具包 [lucene](http://lucene.apache.org/)   
