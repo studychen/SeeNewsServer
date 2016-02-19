@@ -15,6 +15,8 @@
 		<servlet-name>parseArticleById</servlet-name>
 		<url-pattern>/parseArticle</url-pattern>
 	</servlet-mapping>
+
+	<!-- 根据 column 和 id 从 mysql 里面查找记录 -->
 	<servlet>
 		<servlet-name>ArticleWithSql</servlet-name>
 		<servlet-class>com.chenxb.servlet.ArticleWithSql</servlet-class>
@@ -27,11 +29,11 @@
 	<!-- 得到新闻数组 -->
 	<servlet>
 		<servlet-name>parseArticleByColumn</servlet-name>
-		<servlet-class>com.chenxb.servlet.ArticlesByColumn</servlet-class>
+		<servlet-class>com.chenxb.servlet.ColumnArticlesWithSql</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>parseArticleByColumn</servlet-name>
-		<url-pattern>/arraysWithSql</url-pattern>
+		<url-pattern>/columnWithSql</url-pattern>
 	</servlet-mapping>
 
 	<!-- 得到轮播图片 -->
@@ -41,6 +43,17 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>parseRotationWithSql</servlet-name>
-		<url-pattern>/parseRotation</url-pattern>
+		<url-pattern>/rotationWithSql</url-pattern>
+	</servlet-mapping>
+
+
+	<!-- 搜索 -->
+	<servlet>
+		<servlet-name>searchArticle</servlet-name>
+		<servlet-class>com.chenxb.servlet.SearchArticle</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>searchArticle</servlet-name>
+		<url-pattern>/searchArticle</url-pattern>
 	</servlet-mapping>
 </web-app>

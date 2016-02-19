@@ -9,6 +9,7 @@ import java.util.Arrays;
 
 import com.chenxb.model.ArticleItem;
 import com.chenxb.util.MysqlTool;
+import com.chenxb.util.TableName;
 
 /**
  * 插入新闻纪录到 mysql
@@ -24,14 +25,19 @@ public class ArticleDao {
 	}
 
 	/**
-	 * 根据 id 从数据库中获取新闻
+	 * 根据 type 找到数据库表名称
+	 * 再从该表里找出 id 对应的新闻
+	 * @param type 
 	 * @param id
 	 * @return
 	 * @throws SQLException
 	 */
-	public ArticleItem getArticleById(int id) throws SQLException {
+	public ArticleItem getArticleByTypeId(int type, int id) throws SQLException {
+		// 根据 type 找出对应的 table 名称
+		String tableName = TableName.getTableByType(type);
+
 		// the mysql select statement
-		String query = "select * from latest where id = ?";
+		String query = "select * from " + tableName + " where id = ?";
 
 		// create the mysql preparedstatement
 		PreparedStatement preparedStmt = connection.prepareStatement(query);
@@ -73,6 +79,14 @@ public class ArticleDao {
 		preparedStmt.setString(6, article.getSource());
 		preparedStmt.setString(7, article.getBody());
 		return preparedStmt.executeUpdate();
+	}
+
+	public Connection getConnection() {
+		return connection;
+	}
+
+	public void setConnection(Connection connection) {
+		this.connection = connection;
 	}
 
 }

@@ -25,7 +25,6 @@ public class Test4 {
 
 	public static void main(String[] args) throws Exception {
 
-		System.out.println(RotationImageBiz.parseHomeRotaions());
 		
 		System.out.println("ca4b9dadbc73ccfd4c995d7c0a179f95".length());
 		// Elements eles =

@@ -3,12 +3,7 @@ package com.chenxb.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,8 +16,13 @@ import com.chenxb.model.ArticleItem;
 import com.chenxb.util.TableName;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.sina.sae.util.SaeUserInfo;
 
+/**
+ * 从 mysql 中根据 id 和 column 获取新闻详情
+ * 先获取 colunm，再到对应的表里查询数据
+ * @author tomchen
+ *
+ */
 public class ArticleWithSql extends HttpServlet {
 
 	private ArticleDao dao;
@@ -51,35 +51,43 @@ public class ArticleWithSql extends HttpServlet {
 		resp.setCharacterEncoding("UTF-8");
 
 		PrintWriter out = resp.getWriter();
+		if (req.getParameter("id") == null || req.getParameter("column") == null) {
+			out.write("usage: http://localhost:8080/test/articleWithSql?column=1&id=7000");
+			return;
+		}
+
+		try {
+			if (dao == null || dao.getConnection().isClosed()) {
+				out.write("mysql is null or closed\n");
+				return;
+			}
+		} catch (SQLException e) {
+			StringWriter errors = new StringWriter();
+			e.printStackTrace(new PrintWriter(errors));
+			out.write("mysql is null or closed\n");
+			out.print(errors.toString());
+		}
+
+		// 获取哪个栏目的表
+		int type = Integer.parseInt(req.getParameter("column"));
 
 		int id = Integer.parseInt(req.getParameter("id"));
 
-		if (req.getParameter("action").equals("add")) {
-
-			try {
-				ArticleItem article = ArticleBiz.parseNewsItem(id);
-				dao.insertArticle(TableName.LATEST, article);
-				out.write("add article " + id);
-				out.write(article.toString());
-			} catch (Exception e) {
-				StringWriter errors = new StringWriter();
-				e.printStackTrace(new PrintWriter(errors));
-				out.print(errors.toString());
-				e.printStackTrace();
-			}
-
-		} else if (req.getParameter("action").equals("query")) {
-			ArticleItem article;
-			try {
-				article = dao.getArticleById(id);
-				Gson gson = new GsonBuilder().disableHtmlEscaping().create();
-				String result = gson.toJson(article);
-				out.write(result);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		ArticleItem article;
+		try {
+			article = dao.getArticleByTypeId(type, id);
+			Gson gson = new GsonBuilder().disableHtmlEscaping().create();
+			String result = gson.toJson(article);
+			out.write(result);
+		} catch (Exception e) {
+			StringWriter errors = new StringWriter();
+			e.printStackTrace(new PrintWriter(errors));
+			out.write("ArticleDao getArticleByTypeId error\n");
+			out.print(errors.toString());
+		} finally {
+			out.flush();
+			out.close();
 		}
-
 	}
 
 }

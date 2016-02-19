@@ -103,6 +103,9 @@ public class ArticleBiz {
 		Elements hrefs = contentEle.getElementsByTag("a");
 		for (int i = 0; i < hrefs.size(); i++) {
 			String origin = hrefs.get(i).attr("href");
+			if (Constant.DEBUG) {
+				System.out.println("原始 href=" + origin);
+			}
 			String newUrl = UrlTool.dealAttachmentUrl(id, origin);
 
 			// 防止页面的附件 重复出现，替换多次

@@ -4,8 +4,8 @@ import com.chenxb.util.ImageTool;
 
 public class ReUploadImage {
 	public static void main(String[] args) {
-		String origin = "http://bbs.710071.net/attachments/month_1104/1104241405c4f950d67ff14f52.jpg";
-		System.out.println(ImageTool.convertUrl(0000, origin));
+		String origin = "http://rsc.xidian.edu.cn/plus/img/addon.gif";
+		System.out.println(ImageTool.convertUrl(0000, origin,"a2f5daa62be22c5a07ea60d8db6741f"));
 	}
 
 }

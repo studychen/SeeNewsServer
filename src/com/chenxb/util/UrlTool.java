@@ -49,44 +49,47 @@ public class UrlTool {
 	 * /uploads/file/20150706/20150706094631_73253.doc
 	 * 
 	 * 相对路径全部转化为绝对路径
-	 * @param origin
+	 * @param originTrim
 	 * @return
 	 */
 	public static String dealAttachmentUrl(int currentPage, String origin) {
+		// 去掉首尾的空格
+		String originTrim = origin.trim();
 		// 附件不一定都是在 uploads 文件夹下面
 		// 也有可能外链到其他网站的图片/uploads/image/20141120/20141120**.jpg
-		if (origin.startsWith("/uploads")) {
+		// /news/Upload/2006051811250740787.xls
+		if (StringUtils.startsWithAny(originTrim, "/uploads", "/news/Upload","/news/Images")) {
 			// 相对路径，比如
-			return Constant.SEE_URL + origin;
-		} else if (StringUtils.startsWithAny(origin, Constant.HTTP_PREFIX, Constant.HTTPS_PREFIX,
-				Constant.FTP_PREFIX)) {
+			return Constant.SEE_URL + originTrim;
+		} else if (StringUtils.startsWithAny(originTrim, Constant.HTTP_PREFIX, Constant.HTTPS_PREFIX,
+				Constant.FTP_PREFIX, Constant.JS_PREFIX)) {
 			// http https ftp 开头
 			// 先后顺序，先判断是不是 http 开头，再判断是不是 www 开头
 			if (Constant.DEBUG) {
 				System.out.println("in dealAttachmentUrl 全路径");
 			}
-			return origin;
-		} else if (origin.length() == 0 || origin.equals("")) {
+			return originTrim;
+		} else if (originTrim.length() == 0 || originTrim.equals("")) {
 			// 无效<a>标签，获得的href为""
-			return origin;
-		} else if (origin.startsWith(Constant.MAILTO_PREFIX)) {
-			return origin;
-		} else if (VALID_EMAIL_REGEX.matcher(origin).find()) {
+			return originTrim;
+		} else if (originTrim.startsWith(Constant.MAILTO_PREFIX)) {
+			return originTrim;
+		} else if (VALID_EMAIL_REGEX.matcher(originTrim).find()) {
 			// 只是邮件名，加上 mailto
 			// 注意前后顺序
-			return Constant.MAILTO_PREFIX + origin;
-		} else if (origin.startsWith(Constant.WWW_PREFIX)) {
+			return Constant.MAILTO_PREFIX + originTrim;
+		} else if (originTrim.startsWith(Constant.WWW_PREFIX)) {
 			// www开头的，加上 http://
-			return Constant.HTTP_PREFIX + origin;
-		} else if (origin.equals(Constant.WEBSITE_NAME)) {
+			return Constant.HTTP_PREFIX + originTrim;
+		} else if (originTrim.equals(Constant.WEBSITE_NAME)) {
 			return Constant.SEE_URL;
 		} else {
 			// 链接未在考虑范围内，发邮件通知
 			StringBuilder builder = new StringBuilder();
 			builder.append("<p>UrlTool.dealAttachmentUrl() 无法解析url</p>");
-			builder.append("<p>异常 href = " + origin + "</p>");
+			builder.append("<p>异常 href = " + originTrim + "</p>");
 			MailTool.sendException(builder.toString(), currentPage, MailTool.HREF_UNUSUAL);
-			return origin;
+			return originTrim;
 		}
 	}
 

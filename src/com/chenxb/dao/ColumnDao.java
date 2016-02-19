@@ -16,6 +16,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import com.chenxb.biz.ArticleBiz;
 import com.chenxb.biz.ColumnBiz;
 import com.chenxb.model.ArticleItem;
+import com.chenxb.model.SimpleArticleItem;
 import com.chenxb.util.Constant;
 import com.chenxb.util.MysqlTool;
 import com.chenxb.util.TableName;
@@ -28,7 +29,7 @@ import com.chenxb.util.TimeTool;
  *
  */
 public class ColumnDao {
-	private static final int MAX_COLUMN_NUM = 20;
+	private static final int MAX_COLUMN_NUM = 30;
 	private Connection connection;
 
 	public ColumnDao() throws Exception {
@@ -161,11 +162,11 @@ public class ColumnDao {
 				if (find) {
 					for (int id : ids) {
 						ArticleItem article = ArticleBiz.parseNewsItem(id);
+						insertArticle(tableName, article);
 						if (DEBUG) {
 							System.out.println(TimeTool.getCurrentTime() + " insert " + id + " " + article.getTitle()
 									+ " into " + tableName);
 						}
-						insertArticle(tableName, article);
 						// 等待时间，避免对被爬取的网站负载过大
 						TimeTool.sleepSomeTime();
 					}
@@ -232,21 +233,34 @@ public class ColumnDao {
 
 	/**
 	 * 返回某个表 最新的Constant.EACH_AMOUNT条新闻
+	 * 只是 listview 展示
+	 * 分页展示，需要 type 和偏移id
 	 * @param type
 	 * @param threshold
 	 * @return
 	 * @throws SQLException 
 	 */
-	public List<ArticleItem> getTopArticles(int type) throws SQLException {
+	public List<SimpleArticleItem> getTopSimpleArticles(int type, int offset) throws SQLException {
 		String tableName = TableName.getTableByType(type);
 
-		String query = "select * from " + tableName + " order by id desc limit " + Constant.EACH_AMOUNT;
+		//这儿两个 sql 语句要同步修改
+		String query = "select id,image_urls,title,publish_date,read_times from " + tableName
+				+ " where id < ? order by id desc limit " + Constant.EACH_AMOUNT;
 
 		PreparedStatement preparedStmt = connection.prepareStatement(query);
 
+		preparedStmt.setInt(1, offset);
+
+		// 如果是首页 这是很少的情况
+		if (offset == -1) {
+			query = "select id,image_urls,title,publish_date,read_times from " + tableName + " order by id desc limit "
+					+ Constant.EACH_AMOUNT;
+			preparedStmt = connection.prepareStatement(query);
+		}
+
 		ResultSet rs = preparedStmt.executeQuery();
 
-		List<ArticleItem> articles = new ArrayList<ArticleItem>(Constant.EACH_AMOUNT);
+		List<SimpleArticleItem> articles = new ArrayList<SimpleArticleItem>(Constant.EACH_AMOUNT);
 
 		while (rs.next()) {
 			int id = rs.getInt(1);
@@ -254,9 +268,7 @@ public class ColumnDao {
 			String title = rs.getString(3);
 			String date = rs.getDate(4).toString();
 			int readTimes = rs.getInt(5);
-			String source = rs.getString(6);
-			String body = rs.getString(7);
-			ArticleItem article = new ArticleItem(id, imageUrls, title, date, readTimes, source, body);
+			SimpleArticleItem article = new SimpleArticleItem(id, imageUrls, title, date, readTimes);
 			articles.add(article);
 		}
 		return articles;

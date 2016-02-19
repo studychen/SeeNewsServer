@@ -14,6 +14,8 @@ public class ImageTool {
 	// 附件下载的图标，忽略
 	private static final String IMAGE_BASE = "/uploads/image";
 	private static final String IMAGE_OLD__BASE = "/uploads/old";
+	private static final String IMAGE_OLD__NEWS = "/news/Images";
+	private static final String IMAGE_OLD__GRAPH = "/graph";
 
 	/**
 	 * 图片上传到七牛，和原来的 imageUrl 不相等 
@@ -52,6 +54,11 @@ public class ImageTool {
 			uploadByUrl(currentPage, wholeURl, imageKey);
 			return imageKey;
 
+		} else if (StringUtils.startsWithAny(origin, IMAGE_OLD__NEWS, IMAGE_OLD__GRAPH)) {
+			// 资源已被删除 返回原地址
+			// /news/Images/2006060515215782024.jpg
+			// /graph/jpg.gif
+			return Constant.SEE_URL + origin;
 		} else {
 			// 这部分 todo，识别其他格式的图片
 			// 或者试图访问这个图片，但失败了，则不是完整的 url
@@ -92,10 +99,8 @@ public class ImageTool {
 		} else if (origin.startsWith(IMAGE_OLD__BASE)) {
 			// 老图片路径 /uploads/old
 			String wholeURl = Constant.SEE_URL + origin;
-
 			uploadByUrl(currentPage, wholeURl, imageKey);
 			return imageKey;
-
 		} else {
 			// 这部分 todo，识别其他格式的图片
 			// 或者试图访问这个图片，但失败了，则不是完整的 url

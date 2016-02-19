@@ -14,6 +14,7 @@ public class Constant {
 
 	public static final String WWW_PREFIX = "www";
 	public static final String WEBSITE_NAME = "电院";
+	public static final String JS_PREFIX = "javascript";
 
 	// mailto:lzli@see.xidian.edu.cn
 	public static final String MAILTO_PREFIX = "mailto:";
