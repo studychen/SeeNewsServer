@@ -3,11 +3,24 @@
 
 Java Servlet+Mysql
 ## 开发记录
-
+修改 split 方法对于[] 返回单个元素的问题[""]
 初始化方法：从第1页到末页，每页53条记录，爬取新闻<br>
 如果中途中断，需要断点初始化，方法是：<br>
 从数据库中取出最小的 id，然后找出该 id 在网站哪一页第几个<br>
 爬取该位置以下的新闻记录<br>
+
+## 随机图片 API
+
+[http://7xr4g8.com1.z0.glb.clouddn.com/671](http://7xr4g8.com1.z0.glb.clouddn.com/671) 获取图片
+
+![blog.csdn.net/never_cxb](http://7xr4g8.com1.z0.glb.clouddn.com/671)
+
+671是数字编号，目前有效图标编号的是 0 到 964，可以通过随机产生 id 来获取随机图片
+
+```
+Random randrom = new Random(47);
+String url = "http://7xr4g8.com1.z0.glb.clouddn.com/" +randrom.nextInt(964+1);
+```
 
 ##mysql 建表语句
 
@@ -84,3 +97,4 @@ CREATE TABLE `rotation` (
 - javamail [javamail](https://java.net/projects/javamail/pages/Home)
 - 中文分词 [jcseg](http://www.oschina.net/p/jcseg)  
 - 全文检索引擎工具包 [lucene](http://lucene.apache.org/)   
+- 随机图片 API [unsplash](https://unsplash.it/)
