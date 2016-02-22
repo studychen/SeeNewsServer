@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import com.chenxb.biz.ArticleBiz;
 import com.chenxb.biz.ColumnBiz;
@@ -235,6 +236,8 @@ public class ColumnDao {
 	 * 返回某个表 最新的Constant.EACH_AMOUNT条新闻
 	 * 只是 listview 展示
 	 * 分页展示，需要 type 和偏移id
+	 * 修改了数据库中图片数组
+	 * 对于附件图标、doc 图标等不返回给手机端
 	 * @param type
 	 * @param threshold
 	 * @return
@@ -243,7 +246,7 @@ public class ColumnDao {
 	public List<SimpleArticleItem> getTopSimpleArticles(int type, int offset) throws SQLException {
 		String tableName = TableName.getTableByType(type);
 
-		//这儿两个 sql 语句要同步修改
+		// 这儿两个 sql 语句要同步修改
 		String query = "select id,image_urls,title,publish_date,read_times from " + tableName
 				+ " where id < ? order by id desc limit " + Constant.EACH_AMOUNT;
 
@@ -264,7 +267,16 @@ public class ColumnDao {
 
 		while (rs.next()) {
 			int id = rs.getInt(1);
-			String[] imageUrls = rs.getString(2).replace("[", "").replace("]", "").split(", ");
+			String[] imageUrls = {};
+			String urls = rs.getString(2);
+			// split 最少也是返回一个元素 [] 返回 [""]
+			if (!urls.equals("[]")) {
+				imageUrls = urls.replace("[", "").replace("]", "").split(", ");
+				for (String url : Constant.USELESS_IMAGE_URL) {
+					// 删除所有出现的元素
+					imageUrls = ArrayUtils.removeAllOccurences(imageUrls, url);
+				}
+			}
 			String title = rs.getString(3);
 			String date = rs.getDate(4).toString();
 			int readTimes = rs.getInt(5);

@@ -1,19 +1,36 @@
 package com.chenxb.news;
 
+import java.util.ArrayList;
+
 import com.chenxb.dao.ColumnDao;
 import com.chenxb.util.ColumnType;
 
 public class ReloadJob {
 	public static void main(String[] args) {
-		new Thread() {
-			public void run() {
-				try {
-					new ColumnDao().reInitArticles(ColumnType.JOB);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+		ArrayList<Integer> a = new ArrayList<Integer>();
+		a.add(11);
+		a.add(112);
+		System.out.println("array: " + a);
+		A aaa = new A(a);
+		System.out.println("A: " + aaa);
+		a.add(33);
+		System.out.println("array: " + a);
+		System.out.println("A: " + aaa);
 
-			}
-		}.start();
 	}
+
+}
+
+class A {
+	ArrayList<Integer> arr;
+
+	A(ArrayList<Integer> arr) {
+		this.arr = arr;
+	}
+
+	@Override
+	public String toString() {
+		return arr + "";
+	}
+
 }

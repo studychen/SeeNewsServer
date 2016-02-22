@@ -25,6 +25,10 @@ public class Constant {
 	public static final String RAR_JPG_SUFFIX = "rar.jpg";
 	public static final String ZIP_JPG_SUFFIX = "zip.jpg";
 
+	// 无用连接 附件图标等等
+	public static final String[] USELESS_IMAGE_URL = { "912720f605b84070e223d0dab690a114",
+			"b5805b46ce8cf9c634b3820a23d64ca6", "84b7028179e09614540cea8dd0122c3c" };
+
 	// 七牛图片链接 域名
 	public static final String BUCKET_HOST_NAME = "http://7xq7ik.com1.z0.glb.clouddn.com/";
 
@@ -32,8 +36,8 @@ public class Constant {
 
 	// 手机端 listview 新闻数目
 	public static final int EACH_AMOUNT = 15;
-	
-	//轮播图片数量
+
+	// 轮播图片数量
 	public static final int ROTATION_AMOUNT = 7;
 
 }

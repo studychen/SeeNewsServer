@@ -53,7 +53,7 @@ public class ColumnArticlesWithSql extends HttpServlet {
 		PrintWriter out = resp.getWriter();
 
 		if (req.getParameter("column") == null || req.getParameter("offset") == null) {
-			out.write("usage: http://localhost:8080/test/columnWithSql?column=1?offset=7916");
+			out.write("usage: http://localhost:8080/test/columnWithSql?column=1&offset=7916");
 			return;
 		}
 
