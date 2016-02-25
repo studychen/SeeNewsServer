@@ -61,7 +61,7 @@ public class MailTool {
 		Transport transport;
 		try {
 			transport = session.getTransport();
-			transport.connect("smtp.qq.com", "905073281@qq.com", "whmfcqvakhktbbic");
+			transport.connect("smtp.qq.com", "905073281@qq.com", "*********");
 
 		} catch (Exception e) {
 			e.printStackTrace();
