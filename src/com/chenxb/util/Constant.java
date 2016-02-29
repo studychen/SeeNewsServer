@@ -1,9 +1,9 @@
 package com.chenxb.util;
 
 public class Constant {
-	public static final String SEE_URL = "http://see.xidian.edu.cn";
+	public static final String SEE_URL = "http://**********";
 
-	public static final String ARTICLE_BASE_URL = "http://see.xidian.edu.cn/html/news/";
+	public static final String ARTICLE_BASE_URL = "http://**********";
 
 	public static final String HTTP_PREFIX = "http://";
 	public static final String HTTPS_PREFIX = "https://";
@@ -30,7 +30,7 @@ public class Constant {
 			"b5805b46ce8cf9c634b3820a23d64ca6", "84b7028179e09614540cea8dd0122c3c" };
 
 	// 七牛图片链接 域名
-	public static final String BUCKET_HOST_NAME = "http://7xq7ik.com1.z0.glb.clouddn.com/";
+	public static final String BUCKET_HOST_NAME = "http://**********";
 
 	public static final boolean DEBUG = true;
 

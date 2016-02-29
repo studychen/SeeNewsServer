@@ -136,9 +136,9 @@ public class ImageTool {
  *
  */
 class FetchRunnable implements Runnable {
-	private static final String ACCESS_KEY = "0JdTNdUAyxP1i4GuAPzb2lF-HpELjf12ZvcQ7f0a"; // 你的access_key
-	private static final String SECRET_KEY = "rsorpEMhIC3rYxud9StCH15-jbAOkyPAD51zx_eG"; // 你的secret_key
-	private static final String BUCKET_NAME = "seenews"; // 你的secret_key
+	private static final String ACCESS_KEY = "**-*********"; // 你的access_key
+	private static final String SECRET_KEY = "**-*********"; // 你的secret_key
+	private static final String BUCKET_NAME = "*****"; // 你的secret_key
 
 	private int currentPage;
 	private String url;
