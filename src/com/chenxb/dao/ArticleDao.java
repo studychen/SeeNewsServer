@@ -7,7 +7,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import com.chenxb.model.ArticleItem;
+import com.chenxb.util.Constant;
 import com.chenxb.util.MysqlTool;
 import com.chenxb.util.TableName;
 
@@ -45,7 +48,16 @@ public class ArticleDao {
 
 		ResultSet rs = preparedStmt.executeQuery();
 		while (rs.next()) {
-			String[] imageUrls = rs.getString(2).replace("[", "").replace("]", "").split(", ");
+			String[] imageUrls = {};
+			String urls = rs.getString(2);
+			// split 最少也是返回一个元素 [] 返回 [""s]
+			if (!urls.equals("[]")) {
+				imageUrls = urls.replace("[", "").replace("]", "").split(", ");
+				for (String url : Constant.USELESS_IMAGE_URL) {
+					// 删除所有出现的元素
+					imageUrls = ArrayUtils.removeAllOccurences(imageUrls, url);
+				}
+			}
 			String title = rs.getString(3);
 			String date = rs.getDate(4).toString();
 			int readTimes = rs.getInt(5);

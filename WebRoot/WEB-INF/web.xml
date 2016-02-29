@@ -36,6 +36,16 @@
 		<url-pattern>/columnWithSql</url-pattern>
 	</servlet-mapping>
 
+	<!-- 得到大于某个id的新闻数组 下拉刷新使用 -->
+	<servlet>
+		<servlet-name>moreArticlesWithSql</servlet-name>
+		<servlet-class>com.chenxb.servlet.MoreArticlesWithSql</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>moreArticlesWithSql</servlet-name>
+		<url-pattern>/columnMore</url-pattern>
+	</servlet-mapping>
+
 	<!-- 得到轮播图片 -->
 	<servlet>
 		<servlet-name>parseRotationWithSql</servlet-name>

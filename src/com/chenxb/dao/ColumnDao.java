@@ -246,9 +246,11 @@ public class ColumnDao {
 	public List<SimpleArticleItem> getTopSimpleArticles(int type, int offset) throws SQLException {
 		String tableName = TableName.getTableByType(type);
 
+		String selectColumns = "select id,image_urls,title,publish_date,read_times,summary from " + tableName;
+		String limitCount = " order by id desc limit " + Constant.EACH_AMOUNT;
+
 		// 这儿两个 sql 语句要同步修改
-		String query = "select id,image_urls,title,publish_date,read_times from " + tableName
-				+ " where id < ? order by id desc limit " + Constant.EACH_AMOUNT;
+		String query = selectColumns + " where id < ? " + limitCount;
 
 		PreparedStatement preparedStmt = connection.prepareStatement(query);
 
@@ -256,8 +258,7 @@ public class ColumnDao {
 
 		// 如果是首页 这是很少的情况
 		if (offset == -1) {
-			query = "select id,image_urls,title,publish_date,read_times from " + tableName + " order by id desc limit "
-					+ Constant.EACH_AMOUNT;
+			query = selectColumns + limitCount;
 			preparedStmt = connection.prepareStatement(query);
 		}
 
@@ -269,7 +270,7 @@ public class ColumnDao {
 			int id = rs.getInt(1);
 			String[] imageUrls = {};
 			String urls = rs.getString(2);
-			// split 最少也是返回一个元素 [] 返回 [""]
+			// split 最少也是返回一个元素 [] 返回 [""s]
 			if (!urls.equals("[]")) {
 				imageUrls = urls.replace("[", "").replace("]", "").split(", ");
 				for (String url : Constant.USELESS_IMAGE_URL) {
@@ -280,7 +281,65 @@ public class ColumnDao {
 			String title = rs.getString(3);
 			String date = rs.getDate(4).toString();
 			int readTimes = rs.getInt(5);
-			SimpleArticleItem article = new SimpleArticleItem(id, imageUrls, title, date, readTimes);
+			String summary = rs.getString(6);
+			SimpleArticleItem article = new SimpleArticleItem(id, imageUrls, title, date, readTimes, summary);
+			articles.add(article);
+		}
+		return articles;
+	}
+
+	/**
+	 * 返回某个表 最新的Constant.EACH_AMOUNT条新闻
+	 * 只是 listview 展示
+	 * 分页展示，需要 type 
+	 * 大于某个给定的id
+	 * 修改了数据库中图片数组
+	 * 对于附件图标、doc 图标等不返回给手机端
+	 * @param type
+	 * @param threshold
+	 * @return
+	 * @throws SQLException 
+	 */
+	public List<SimpleArticleItem> moreArticles(int type, int morethan) throws SQLException {
+		String tableName = TableName.getTableByType(type);
+
+		String selectColumns = "select id,image_urls,title,publish_date,read_times,summary from " + tableName;
+		String limitCount = " order by id desc limit " + Constant.EACH_AMOUNT;
+
+		// 这儿两个 sql 语句要同步修改
+		String query = selectColumns + " where id > ? " + limitCount;
+
+		PreparedStatement preparedStmt = connection.prepareStatement(query);
+
+		preparedStmt.setInt(1, morethan);
+
+		// 如果是首页 这是很少的情况
+		if (morethan == -1) {
+			query = selectColumns + limitCount;
+			preparedStmt = connection.prepareStatement(query);
+		}
+
+		ResultSet rs = preparedStmt.executeQuery();
+
+		List<SimpleArticleItem> articles = new ArrayList<SimpleArticleItem>(Constant.EACH_AMOUNT);
+
+		while (rs.next()) {
+			int id = rs.getInt(1);
+			String[] imageUrls = {};
+			String urls = rs.getString(2);
+			// split 最少也是返回一个元素 [] 返回 [""s]
+			if (!urls.equals("[]")) {
+				imageUrls = urls.replace("[", "").replace("]", "").split(", ");
+				for (String url : Constant.USELESS_IMAGE_URL) {
+					// 删除所有出现的元素
+					imageUrls = ArrayUtils.removeAllOccurences(imageUrls, url);
+				}
+			}
+			String title = rs.getString(3);
+			String date = rs.getDate(4).toString();
+			int readTimes = rs.getInt(5);
+			String summary = rs.getString(6);
+			SimpleArticleItem article = new SimpleArticleItem(id, imageUrls, title, date, readTimes, summary);
 			articles.add(article);
 		}
 		return articles;

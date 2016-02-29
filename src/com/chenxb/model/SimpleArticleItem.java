@@ -1,5 +1,7 @@
 package com.chenxb.model;
 
+import java.util.Arrays;
+
 /**
  * listview 用到的简单实体类
  * 只包括 id，标题，发布日期，阅读次数
@@ -16,6 +18,7 @@ public class SimpleArticleItem {
 	private String title;
 	private String publishDate;
 	private int readTimes;
+	private String summary;
 
 	public SimpleArticleItem(int id, String[] imageUrls, String title, String publishDate, int readTimes) {
 		this.id = id;
@@ -23,6 +26,16 @@ public class SimpleArticleItem {
 		this.title = title;
 		this.publishDate = publishDate;
 		this.readTimes = readTimes;
+	}
+
+	public SimpleArticleItem(int id, String[] imageUrls, String title, String publishDate, int readTimes,
+			String summary) {
+		this.id = id;
+		this.imageUrls = imageUrls;
+		this.title = title;
+		this.publishDate = publishDate;
+		this.readTimes = readTimes;
+		this.summary = summary;
 	}
 
 	public int getId() {
@@ -65,9 +78,17 @@ public class SimpleArticleItem {
 		this.readTimes = readTimes;
 	}
 
+	public String getSummary() {
+		return summary;
+	}
+
+	public void setSummary(String summary) {
+		this.summary = summary;
+	}
+
 	@Override
 	public String toString() {
-		return "SimpleArticleItem [id=" + id + ", title=" + title + ", publishDate=" + publishDate + ", readTimes="
-				+ readTimes + "]";
+		return "SimpleArticleItem [id=" + id + ", imageUrls=" + Arrays.toString(imageUrls) + ", title=" + title
+				+ ", publishDate=" + publishDate + ", readTimes=" + readTimes + ", summary=" + summary + "]";
 	}
 }

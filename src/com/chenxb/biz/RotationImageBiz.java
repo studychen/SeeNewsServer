@@ -40,7 +40,7 @@ public class RotationImageBiz {
 
 			String imageUrl = imgEle.attr("src");
 
-			String key = ImageTool.convertUrl(id, imageUrl);
+			String[] key = { ImageTool.convertUrl(id, imageUrl) };
 
 			String title = imgEle.attr("alt");
 

@@ -76,7 +76,8 @@ public class RotationImageDao {
 
 		while (rs.next()) {
 			int id = rs.getInt(1);
-			String imageUrl = rs.getString(2);
+			String[] imageUrl = { rs.getString(2).replace("[", "").replace("]", "") };
+
 			String title = rs.getString(3);
 			int type = rs.getInt(4);
 			rotations.add(new RotationItem(id, imageUrl, title, type));
@@ -93,7 +94,7 @@ public class RotationImageDao {
 		// create the mysql insert preparedstatement
 		PreparedStatement preparedStmt = connection.prepareStatement(query);
 		preparedStmt.setInt(1, rotation.getId());
-		preparedStmt.setString(2, rotation.getImageUrl());
+		preparedStmt.setString(2, Arrays.toString(rotation.getImageUrl()));
 		preparedStmt.setString(3, rotation.getTitle());
 		preparedStmt.setInt(4, rotation.getType());
 		return preparedStmt.executeUpdate();

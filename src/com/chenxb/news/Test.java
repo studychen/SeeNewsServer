@@ -33,25 +33,12 @@ public class Test {
 	private String x;
 
 	public static void main(String arg[]) throws Exception {
-		String url = "[]";
-		String[] zz = url.replace("[", "").replace("]", "").split(", ");
-		System.out.println(Arrays.toString(zz));
-		System.out.println(zz.length);
-
-		url = "[912720f605b84070e223d0dab690a114, 912720f605b84070e223d0dab690a114, 912720f605b84070e223d0dab690a114]";
-		zz = url.replace("[", "").replace("]", "").split(", ");
-
-		zz = ArrayUtils.removeAllOccurences(zz, "912720f605b84070e223d0dab690a114");
-		System.out.println(Arrays.toString(zz));
-		System.out.println(zz.length);
-
-		String[] zz1 = {};
-		System.out.println(Arrays.toString(zz1));
-		System.out.println(zz1.length);
+			test(7937);
 	}
 
-	public static void test(String x) {
-		System.out.println(x.length());
+	public static void test(int id) {
+		Random rand = new Random(id);
+		System.out.println(rand.nextInt(965));
 	}
 
 	public static final boolean isCloud = false;
