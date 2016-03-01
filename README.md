@@ -1,5 +1,8 @@
 # APISeeNews
-新闻服务器端，JavaWeb 实现，基于新浪云、七牛云
+新闻服务器端，JavaWeb 实现，
+
+第一版托管于新浪云，后期转移到阿里云
+图片存于七牛云CDN
 
 Java Servlet+Mysql
 ## 开发记录
