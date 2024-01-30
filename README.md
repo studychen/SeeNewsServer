@@ -1,4 +1,4 @@
-#SeeNewsServer
+# SeeNewsServer
 
 Server side of personal news APP, Java Servlet + Mysql implementation
 
