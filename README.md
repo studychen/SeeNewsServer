@@ -50,7 +50,7 @@ CREATE TABLE `rotation` (
 
 ```
 
-##Feature list
+## Feature list
 
 ### Crawling exception email notification
 Based on JavaMail, send email notifications for abnormal pictures and abnormal URLs
